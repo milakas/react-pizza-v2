@@ -2,7 +2,7 @@ import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-import bemCreator from '../ts/bemCreator';
+import bemCreator from '../utils/bemCreator';
 
 const cn = bemCreator('header');
 

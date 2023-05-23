@@ -1,4 +1,4 @@
-import bemCreator from '../ts/bemCreator';
+import bemCreator from '../utils/bemCreator';
 
 const cn = bemCreator('categories');
 
