@@ -10,8 +10,6 @@ import pizzas from './assets/pizzas.json';
 
 import './scss/app.scss';
 
-console.log(pizzas);
-
 function App() {
   return (
     <div className="wrapper">

@@ -2,19 +2,12 @@ import React from 'react';
 
 import bemCreator from '../utils/bemCreator';
 import { categories } from '../utils/constants';
+import { setActiveIndex, getActiveClass } from '../utils/state';
 
 const cn = bemCreator('categories');
 
 const Categories = () => {
   const [activeCategories, setActiveCategories] = React.useState<number>(0);
-
-  const onClickCategory = (index: number): void => {
-    setActiveCategories(index);
-  };
-
-  const getActiveCategoryClassName = (index: number): string => {
-    return activeCategories === index ? 'active' : '';
-  };
 
   return (
     <div className={cn()}>
@@ -22,8 +15,10 @@ const Categories = () => {
         {categories.map((category, index) => (
           <li
             key={index}
-            onClick={() => onClickCategory(index)}
-            className={`${getActiveCategoryClassName(index)} ${cn('item')}`}>
+            onClick={() => setActiveIndex(setActiveCategories, index)}
+            className={`${getActiveClass(activeCategories, index)} ${cn(
+              'item'
+            )}`}>
             {category}
           </li>
         ))}

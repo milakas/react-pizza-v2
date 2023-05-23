@@ -3,10 +3,11 @@ import Grid from '@mui/material/Grid';
 
 import bemCreator from '../utils/bemCreator';
 import { typeNames } from '../utils/constants';
+import { setActiveIndex, getActiveClass } from '../utils/state';
 
 const cn = bemCreator('pizza-block');
 
-interface IPizzaBlock {
+interface PizzaBlockProps {
   id: number;
   imageUrl: string;
   title: string;
@@ -25,12 +26,12 @@ const PizzaBlock = ({
   types,
   sizes,
   price,
-}: IPizzaBlock) => {
+}: PizzaBlockProps) => {
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
 
   return (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
+    <Grid item xs={6} sm={6} md={4} lg={3}>
       <div className={cn()}>
         <div className={cn('content')}>
           <div className={cn('image-wrap')}>
@@ -45,10 +46,8 @@ const PizzaBlock = ({
               {sizes.map((size: number, i: number) => (
                 <li
                   key={i}
-                  onClick={() => setActiveSize(i)}
-                  className={`${activeSize === i ? 'active' : ''} ${cn(
-                    'size'
-                  )}`}>
+                  onClick={(): void => setActiveIndex(setActiveSize, i)}
+                  className={`${getActiveClass(activeSize, i)} ${cn('size')}`}>
                   {size} см.
                 </li>
               ))}
@@ -57,10 +56,8 @@ const PizzaBlock = ({
               {types.map((type: number, i: number) => (
                 <li
                   key={i}
-                  onClick={() => setActiveType(i)}
-                  className={`${activeType === i ? 'active' : ''} ${cn(
-                    'type'
-                  )}`}>
+                  onClick={(): void => setActiveIndex(setActiveType, i)}
+                  className={`${getActiveClass(activeType, i)} ${cn('type')}`}>
                   {typeNames[type]}
                 </li>
               ))}
