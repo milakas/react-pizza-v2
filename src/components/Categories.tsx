@@ -1,17 +1,32 @@
+import React from 'react';
+
 import bemCreator from '../utils/bemCreator';
+import { categories } from '../utils/constants';
 
 const cn = bemCreator('categories');
 
 const Categories = () => {
+  const [activeCategories, setActiveCategories] = React.useState<number>(0);
+
+  const onClickCategory = (index: number): void => {
+    setActiveCategories(index);
+  };
+
+  const getActiveCategoryClassName = (index: number): string => {
+    return activeCategories === index ? 'active' : '';
+  };
+
   return (
     <div className={cn()}>
       <ul className={cn('items')}>
-        <li className={`active ${cn('item')}`}>Все</li>
-        <li className={cn('item')}>Мясные</li>
-        <li className={cn('item')}>Вегетарианская</li>
-        <li className={cn('item')}>Гриль</li>
-        <li className={cn('item')}>Острые</li>
-        <li className={cn('item')}>Закрытые</li>
+        {categories.map((category, index) => (
+          <li
+            key={index}
+            onClick={() => onClickCategory(index)}
+            className={`${getActiveCategoryClassName(index)} ${cn('item')}`}>
+            {category}
+          </li>
+        ))}
       </ul>
     </div>
   );

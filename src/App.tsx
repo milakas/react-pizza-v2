@@ -6,7 +6,11 @@ import Categories from './components/Categories';
 import Sort from './components/Sort';
 import PizzaBlock from './components/PizzaBlock';
 
+import pizzas from './assets/pizzas.json';
+
 import './scss/app.scss';
+
+console.log(pizzas);
 
 function App() {
   return (
@@ -21,10 +25,9 @@ function App() {
           <h2 className="content__title">Все пиццы</h2>
           <div className="content__items">
             <Grid container spacing={3}>
-              <PizzaBlock />
-              <PizzaBlock />
-              <PizzaBlock />
-              <PizzaBlock />
+              {pizzas.map((pizza) => (
+                <PizzaBlock key={pizza.id} {...pizza} />
+              ))}
             </Grid>
           </div>
         </div>

@@ -1,47 +1,79 @@
+import React from 'react';
 import Grid from '@mui/material/Grid';
 
 import bemCreator from '../utils/bemCreator';
+import { typeNames } from '../utils/constants';
 
 const cn = bemCreator('pizza-block');
 
-const PizzaBlock = () => {
+interface IPizzaBlock {
+  id: number;
+  imageUrl: string;
+  title: string;
+  description: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+  category: number;
+  rating: number;
+}
+
+const PizzaBlock = ({
+  imageUrl,
+  title,
+  description,
+  types,
+  sizes,
+  price,
+}: IPizzaBlock) => {
+  const [activeType, setActiveType] = React.useState<number>(0);
+  const [activeSize, setActiveSize] = React.useState<number>(0);
+
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <div className={cn()}>
-        <main className={cn('content')}>
+        <div className={cn('content')}>
           <div className={cn('image-wrap')}>
-            <img
-              className={cn('image')}
-              src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-              alt="Pizza"
-            />
+            <img className={cn('image')} src={imageUrl} alt="Pizza" />
           </div>
-          <div>
-            <h3 className={cn('title')}>Чизбургер-пицца</h3>
-            <p className={cn('description')}>
-              Ветчина, маринованные огурчики, томаты, красный лук, чеснок, соус
-              бургер, моцарелла, фирменный томатный соус
-            </p>
-
-            <div className={cn('selector')}>
-              <ul className={cn('sizes')}>
-                <li className={`active ${cn('size')}`}>Маленькая</li>
-                <li className={cn('size')}>Средняя</li>
-                <li className={cn('size')}>Большая</li>
-              </ul>
-              <ul className={cn('types')}>
-                <li className={`active ${cn('type')}`}>Тонкое</li>
-                <li className={cn('type')}>Традиционное</li>
-              </ul>
-            </div>
+          <h3 className={cn('title')}>{title}</h3>
+          <p className={cn('description')}>{description}</p>
+        </div>
+        <div className={cn('bottom')}>
+          <div className={cn('selector')}>
+            <ul className={cn('sizes')}>
+              {sizes.map((size: number, i: number) => (
+                <li
+                  key={i}
+                  onClick={() => setActiveSize(i)}
+                  className={`${activeSize === i ? 'active' : ''} ${cn(
+                    'size'
+                  )}`}>
+                  {size} см.
+                </li>
+              ))}
+            </ul>
+            <ul className={cn('types')}>
+              {types.map((type: number, i: number) => (
+                <li
+                  key={i}
+                  onClick={() => setActiveType(i)}
+                  className={`${activeType === i ? 'active' : ''} ${cn(
+                    'type'
+                  )}`}>
+                  {typeNames[type]}
+                </li>
+              ))}
+            </ul>
           </div>
-        </main>
-        <footer className={cn('bottom')}>
-          <div className={cn('price')}>от 395 ₽</div>
-          <div className="button button--outline button--add">
-            <span className={cn('add')}>В корзину</span>
+          <div className={cn('order')}>
+            <div className={cn('price')}>от {price} ₽</div>
+            <button className="button button--outline button--add">
+              <span className={cn('add')}>Добавить</span>
+              <i>0</i>
+            </button>
           </div>
-        </footer>
+        </div>
       </div>
     </Grid>
   );
