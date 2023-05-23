@@ -1,148 +1,166 @@
-@import '../variables';
+// @import '../variables';
 
-.button {
-  display: inline-block;
-  background-color: $orange;
-  border-radius: 30px;
-  padding: 10px 20px;
-  min-width: 100px;
-  text-align: center;
-  cursor: pointer;
-  transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
-  border: 1px solid transparent;
-  @include noselect();
+// .button {
+//   background-color: $orange;
+//   border-radius: 30px;
+//   padding: 8px 20px;
+//   min-width: 100px;
+//   text-align: center;
+//   cursor: pointer;
+//   transition: background-color $duration ease-in-out,
+//     border-color $duration ease-in-out;
+//   border: 1px solid transparent;
+//   @include noselect();
 
-  &,
-  span {
-    color: #fff;
-  }
+//   @media screen and (max-width: 767px) {
+//     padding: 5px 18px;
+//   }
 
-  i,
-  span,
-  path,
-  svg {
-    transition: all $duration ease-in-out;
-  }
+//   span {
+//     color: #fff;
+//     font-size: 16px;
+//     transition: font-size ease-in-out 0.3s;
+//     @media screen and (max-width: 767px) {
+//       font-size: 14px;
+//     }
+//     @media screen and (max-width: 600px) {
+//       font-size: 12px;
+//     }
 
-  &:hover {
-    background-color: darken($orange, 8%);
-  }
+//     .MuiBadge-badge {
+//       font-size: 0.65rem;
+//     }
+//   }
 
-  &:active {
-    background-color: darken($orange, 12%);
-    transform: translateY(1px);
-  }
+//   i,
+//   span,
+//   path,
+//   svg {
+//     transition: all $duration ease-in-out;
+//   }
 
-  &--circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    min-width: 32px;
-    padding: 0;
-    border-width: 2px;
-  }
+//   &:hover {
+//     background-color: darken($orange, 8%);
+//   }
 
-  &--black {
-    background-color: $black;
+//   &:active {
+//     background-color: darken($orange, 12%);
+//     transform: translateY(1px);
+//   }
 
-    &:hover,
-    &:active {
-      background-color: lighten($color: $black, $amount: 10);
-    }
-  }
+//   // &--circle {
+//   //   display: flex;
+//   //   align-items: center;
+//   //   justify-content: center;
+//   //   width: 32px;
+//   //   height: 32px;
+//   //   min-width: 32px;
+//   //   padding: 0;
+//   //   border-width: 2px;
+//   // }
 
-  &--outline {
-    background-color: #fff;
-    border-color: $orange;
-    &,
-    span {
-      color: $orange;
-    }
+//   // &--black {
+//   //   background-color: $black;
 
-    svg {
-      path {
-        fill: $orange;
-      }
-    }
+//   //   &:hover,
+//   //   &:active {
+//   //     background-color: lighten($color: $black, $amount: 10);
+//   //   }
+//   // }
 
-    &:hover {
-      background-color: $orange;
+//   &--outline {
+//     background-color: #fff;
+//     border-color: $orange;
+//     &,
+//     span {
+//       color: $orange;
+//     }
 
-      &,
-      span {
-        color: #fff;
-      }
+//     svg {
+//       path {
+//         transform: translateY(1px);
+//         fill: $orange;
+//       }
+//     }
 
-      svg {
-        path {
-          fill: #fff;
-        }
-      }
-    }
+//     &:hover {
+//       background-color: $orange;
 
-    &:active {
-      background-color: darken($orange, 8%);
-    }
-  }
+//       &,
+//       span {
+//         color: #fff;
+//       }
 
-  &__delimiter {
-    width: 1px;
-    height: 25px;
-    background-color: rgba(255, 255, 255, 0.25);
-    margin-left: 14px;
-    margin-right: 14px;
-  }
+//       svg {
+//         path {
+//           fill: #fff;
+//         }
+//       }
+//     }
 
-  &--add {
-    svg {
-      margin-right: 2px;
-    }
+//     &:active {
+//       background-color: darken($orange, 8%);
+//     }
+//   }
 
-    span {
-      font-weight: 600;
-      font-size: 16px;
-    }
+//   &__delimiter {
+//     width: 1px;
+//     height: 25px;
+//     background-color: rgba(255, 255, 255, 0.25);
+//     margin-left: 10px;
+//     margin-right: 10px;
+//   }
 
-    &:hover {
-      i {
-        background-color: #fff;
-        color: $orange;
-      }
-    }
+//   &--add {
+//     svg {
+//       margin-right: 2px;
+//     }
 
-    i {
-      display: inline-block;
-      border-radius: 30px;
-      background-color: $orange;
-      color: #fff;
-      font-weight: 600;
-      width: 22px;
-      height: 22px;
-      font-style: normal;
-      font-size: 13px;
-      line-height: 22px;
-      position: relative;
-      top: -1px;
-      left: 3px;
-    }
-  }
+//     &:hover {
+//       i {
+//         background-color: #fff;
+//         color: $orange;
+//       }
+//     }
 
-  &--cart {
-    display: flex;
-    align-items: center;
-    line-height: 23px;
-    padding: 12px 25px;
+//     i {
+//       display: inline-block;
+//       border-radius: 30px;
+//       background-color: $orange;
+//       color: #fff;
+//       font-weight: 600;
+//       width: 22px;
+//       height: 22px;
+//       font-style: normal;
+//       font-size: 12px;
+//       line-height: 22px;
+//       position: relative;
+//       top: -1px;
+//       left: 3px;
 
-    svg {
-      margin-right: 8px;
-      margin-bottom: 1px;
-    }
+//       @media screen and (max-width: 600px) {
+//         width: 20px;
+//         height: 20px;
+//         font-size: 10px;
+//         line-height: 20px;
+//       }
+//     }
+//   }
 
-    span {
-      font-weight: 600;
-      font-size: 16px;
-    }
-  }
-}
+//   // &--cart {
+//   //   display: flex;
+//   //   align-items: center;
+//   //   line-height: 23px;
+//   //   padding: 12px 25px;
+
+//   //   svg {
+//   //     margin-right: 8px;
+//   //     margin-bottom: 1px;
+//   //   }
+
+//   //   span {
+//   //     font-weight: 600;
+//   //     font-size: 16px;
+//   //   }
+//   // }
+// }

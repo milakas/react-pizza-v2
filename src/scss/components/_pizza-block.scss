@@ -1,54 +1,95 @@
 @import '../variables';
 
 .pizza-block {
-  width: 280px;
-  text-align: center;
-  margin-bottom: 65px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 60px;
 
-  &:not(:nth-of-type(4n)) {
-    margin-right: 35px;
+  @media screen and (max-width: 600px) {
+    max-width: 400px;
+  }
+
+  &:hover &__image {
+    transform: translateY(5px);
+  }
+
+  &__image-wrap {
+    display: flex;
+    justify-content: center;
+    transition: transform 0.3s ease-in-out;
   }
 
   &__image {
-    width: 260px;
+    width: 100%;
+
+    @media screen and (max-width: 600px) {
+      max-width: 250px;
+    }
   }
 
   &__title {
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 1%;
+    margin: 8px 0px;
+  }
+
+  &__description,
+  &__bottom {
     margin-bottom: 20px;
+  }
+
+  &__description {
+    color: $grey;
+  }
+
+  &__price {
+    font-weight: 600;
+    font-size: 22px;
+    transition: font-size ease-in-out 0.3s;
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 16px;
+    }
   }
 
   &__selector {
     display: flex;
-    background-color: #f3f3f3;
-    border-radius: 10px;
     flex-direction: column;
-    padding: 6px;
+    gap: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
 
-    ul {
-      display: flex;
-      flex: 1;
+  &__sizes,
+  &__types {
+    display: flex;
+    flex: 1;
+    border-radius: 10px;
+    border: 1px solid #f3f3f3;
+    background-color: #f3f3f3;
+  }
 
-      &:first-of-type {
-        margin-bottom: 6px;
-      }
+  &__size,
+  &__type {
+    padding: 5px;
+    margin: 2px;
+    flex: 1;
+    font-size: 12px !important;
 
-      li {
-        padding: 8px;
-        flex: 1;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-        @include noselect();
-        &.active {
-          background: #ffffff;
-          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
-          border-radius: 5px;
-          cursor: auto;
-        }
-      }
+    cursor: pointer;
+    @include noselect();
+
+    @media screen and (max-width: 600px) {
+      font-size: 12px;
+    }
+
+    &.active {
+      font-weight: 500;
+      background: #ffffff;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.04);
+      border-radius: 10px;
+      cursor: auto;
     }
   }
 
@@ -56,13 +97,11 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
+    flex-wrap: wrap;
   }
 
-  &__price {
-    font-weight: bold;
-    font-size: 22px;
-    line-height: 27px;
-    letter-spacing: 0.015em;
+  &__add {
+    font-size: 12px !important;
+    font-weight: 600;
   }
 }
