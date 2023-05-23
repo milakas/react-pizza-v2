@@ -31,14 +31,16 @@ const PizzaBlock = ({
   const [activeSize, setActiveSize] = React.useState<number>(0);
 
   return (
-    <Grid item xs={6} sm={6} md={4} lg={3}>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <div className={cn()}>
         <div className={cn('content')}>
           <div className={cn('image-wrap')}>
             <img className={cn('image')} src={imageUrl} alt="Pizza" />
           </div>
-          <h3 className={cn('title')}>{title}</h3>
-          <p className={cn('description')}>{description}</p>
+          <div className={cn('text-wrap')}>
+            <h3 className={cn('title')}>{title}</h3>
+            <p className={cn('description')}>{description}</p>
+          </div>
         </div>
         <div className={cn('bottom')}>
           <div className={cn('selector')}>
