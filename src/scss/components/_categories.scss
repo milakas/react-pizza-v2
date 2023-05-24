@@ -1,14 +1,27 @@
 @import '../variables';
 
 .categories {
+  position: relative;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   &__items {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
+    @media screen and (max-width: 600px) {
+      flex-wrap: nowrap;
+    }
   }
 
   &__item {
-    padding: 13px 30px;
+    padding: 13px 20px;
     border-radius: 30px;
     font-weight: bold;
     font-size: 16px;
@@ -22,9 +35,10 @@
       padding: 10px 15px;
       font-size: 14px;
     }
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 600px) {
       padding: 8px 10px;
       font-size: 12px;
+      scroll-snap-align: start;
     }
     &:hover {
       background-color: darken(#f9f9f9, 2%);

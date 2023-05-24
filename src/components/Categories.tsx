@@ -9,10 +9,24 @@ const cn = bemCreator('categories');
 
 const Categories = () => {
   const [activeCategories, setActiveCategories] = React.useState<number>(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+  const carouselRef = React.useRef<HTMLUListElement>(null);
+
+  React.useEffect(() => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollLeft = scrollLeft;
+    }
+  }, [scrollLeft]);
+
+  const handleScroll = () => {
+    if (carouselRef.current) {
+      setScrollLeft(carouselRef.current.scrollLeft);
+    }
+  };
 
   return (
     <div className={cn()}>
-      <ul className={cn('items')}>
+      <ul className={cn('items')} ref={carouselRef} onScroll={handleScroll}>
         {categories.map((category: PizzaCategory, i: number) => (
           <li
             key={i}
