@@ -1,15 +1,15 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 
-import bemCreator from '../utils/bemCreator';
-import { setActiveIndex, getActiveClass } from '../utils/state';
+import bemCreator from '../../utils/bemCreator';
+import { setActiveIndex, getActiveClass } from '../../utils/state';
 import {
   IPizzaBlock,
   typeNames,
   PizzaType,
   PizzaSize,
   sizeNumber,
-} from '../types/interfaces';
+} from '../../types/interfaces';
 
 const cn = bemCreator('pizza-block');
 
