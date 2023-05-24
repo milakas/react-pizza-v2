@@ -2,22 +2,16 @@ import React from 'react';
 import Grid from '@mui/material/Grid';
 
 import bemCreator from '../utils/bemCreator';
-import { typeNames } from '../utils/constants';
 import { setActiveIndex, getActiveClass } from '../utils/state';
+import {
+  IPizzaBlock,
+  typeNames,
+  PizzaType,
+  PizzaSize,
+  sizeNumber,
+} from '../types/interfaces';
 
 const cn = bemCreator('pizza-block');
-
-interface PizzaBlockProps {
-  id: number;
-  imageUrl: string;
-  title: string;
-  description: string;
-  types: number[];
-  sizes: number[];
-  price: number;
-  category: number;
-  rating: number;
-}
 
 const PizzaBlock = ({
   imageUrl,
@@ -26,7 +20,7 @@ const PizzaBlock = ({
   types,
   sizes,
   price,
-}: PizzaBlockProps) => {
+}: IPizzaBlock) => {
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
 
@@ -45,17 +39,17 @@ const PizzaBlock = ({
         <div className={cn('bottom')}>
           <div className={cn('selector')}>
             <ul className={cn('sizes')}>
-              {sizes.map((size: number, i: number) => (
+              {sizes.map((size: PizzaSize, i: number) => (
                 <li
                   key={i}
                   onClick={(): void => setActiveIndex(setActiveSize, i)}
                   className={`${getActiveClass(activeSize, i)} ${cn('size')}`}>
-                  {size} см.
+                  {sizeNumber[size]} см.
                 </li>
               ))}
             </ul>
             <ul className={cn('types')}>
-              {types.map((type: number, i: number) => (
+              {types.map((type: PizzaType, i: number) => (
                 <li
                   key={i}
                   onClick={(): void => setActiveIndex(setActiveType, i)}

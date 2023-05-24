@@ -1,5 +1,6 @@
-//Categories
-export const categories: string[] = [
+import { PizzaCategory } from '../types/interfaces';
+
+export const categories: PizzaCategory[] = [
   'Все',
   'Мясные',
   'Вегетарианские',
@@ -8,8 +9,4 @@ export const categories: string[] = [
   'Закрытые',
 ];
 
-//PizzaBlock
-export const typeNames: string[] = ['Тонкое', 'Традиционное'];
-
-//Sort
 export const sortList: string[] = ['популярности', 'цене', 'алфавиту'];
