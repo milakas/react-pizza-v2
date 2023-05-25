@@ -1,0 +1,138 @@
+@import '../variables';
+
+.cart-block {
+  position: relative;
+  display: flex;
+  padding: 10px 0;
+  border-bottom: 1px solid #f3f3f3;
+
+  &__wrap {
+    max-width: 767px;
+    margin: 0 auto;
+  }
+
+  &__item {
+    flex: 1;
+  }
+
+  &__description {
+    opacity: 0.6;
+  }
+
+  &:hover &__image {
+    transform: translateY(5px);
+  }
+
+  &__content {
+    display: flex;
+  }
+
+  &__image-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__image {
+    margin-right: 3vw;
+    width: 120px;
+    max-width: 35vw;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &__wrap {
+    flex: 1;
+  }
+
+  &__info {
+    margin-bottom: 10px;
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    color: $orange;
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .MuiButtonGroup-root {
+      border: 1px solid $orange;
+      &:hover {
+        border-color: lighten($color: $orange, $amount: 10%);
+      }
+    }
+
+    .css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+      color: $orange;
+      border: none;
+
+      &:hover {
+        color: lighten($color: $orange, $amount: 10%);
+        border: none;
+      }
+    }
+  }
+
+  &__item-count {
+    display: flex;
+  }
+
+  &__price {
+    font-weight: 600;
+    font-size: 20px;
+    transition: font-size ease-in-out 0.3s;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+    @media screen and (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+
+  &__total-price {
+    font-weight: 600;
+    font-size: 20px;
+    transition: font-size ease-in-out 0.3s;
+
+    @media screen and (max-width: 600px) {
+      font-size: 16px;
+    }
+  }
+
+  &__bottom {
+    padding: 40px 0px;
+  }
+
+  &__bottom-details {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  &__botton-buy {
+    min-height: 40px;
+    color: #fff;
+    width: 100%;
+  }
+
+  &__botton-buy,
+  &__botton-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+
+    font-size: 15px;
+    transition: font-size ease-in-out 0.3s;
+
+    @media screen and (max-width: 600px) {
+      font-size: 13px;
+    }
+  }
+}

@@ -25,12 +25,12 @@
   &__image-wrap {
     display: flex;
     justify-content: center;
-    transition: transform 0.3s ease-in-out;
   }
 
   &__image {
     width: 100%;
     object-fit: contain;
+    transition: transform 0.2s ease-in-out;
 
     @media screen and (max-width: 600px) {
       margin-right: 3vw;
