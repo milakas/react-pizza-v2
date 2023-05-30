@@ -1,29 +1,31 @@
 import React from 'react';
 
-import bemCreator from '../utils/bemCreator';
-import { setActiveIndex, getActiveClass } from '../utils/activeState';
+import bemCreator from '../../utils/bemCreator';
+import { SortItem, sortList } from './utils';
+import { getActiveClass } from '../../utils/activeState';
 
 const cn = bemCreator('sort');
 
-const Sort = () => {
+interface SortProps {
+  value: SortItem;
+  onClickSort(setValue: SortItem): void;
+}
+
+const Sort = ({ value, onClickSort }: SortProps) => {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
 
-  const sortList: string[] = ['популярности', 'цене', 'алфавиту'];
-  const sortName = sortList[selected];
-
-  const handleClick = (): void => {
+  const toggleOpen = (): void => {
     setOpen(!open);
   };
 
-  const onClickListItem = (i: number): void => {
-    setActiveIndex(setSelected, i);
+  const handleSortItemClick = (obj: SortItem): void => {
+    onClickSort(obj);
     setOpen(!open);
   };
 
   return (
     <div className={cn()}>
-      <div className={cn('label')} onClick={handleClick}>
+      <div className={cn('label')} onClick={toggleOpen}>
         <svg
           width="10"
           height="6"
@@ -36,17 +38,17 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{sortName}</span>
+        <span>{value.name}</span>
       </div>
       {open && (
         <div className={cn('popup')}>
           <ul>
-            {sortList.map((name, i) => (
+            {sortList.map((obj, i) => (
               <li
                 key={i}
-                className={`${getActiveClass(selected, i)}`}
-                onClick={(): void => onClickListItem(i)}>
-                {name}
+                className={`${getActiveClass(value, obj)}`}
+                onClick={() => handleSortItemClick(obj)}>
+                {obj.name}
               </li>
             ))}
           </ul>
