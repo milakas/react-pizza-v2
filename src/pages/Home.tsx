@@ -5,34 +5,49 @@ import axios from 'axios';
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
-import { IPizzaBlock } from '../types/interfaces';
+import { IPizzaBlock } from '../types/pizza';
 import PizzaBlock from '../components/PizzaBlock';
+import { SortItem } from '../components/Sort/utils';
 
 const Home = () => {
   const [items, setItems] = React.useState<IPizzaBlock[]>([]);
-  const [isLoading, setIsLoading] = React.useState(true);
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const [categoryId, setCategoryId] = React.useState<number>(0);
+  const [sortType, setSortType] = React.useState<SortItem>({
+    name: 'популярности',
+    sortBy: 'rating',
+  });
 
   React.useEffect(() => {
     try {
-      const fetchData = async () => {
-        const { data } = await axios.get(
-          'https://646db4449c677e23218a4558.mockapi.io/items'
-        );
+      setIsLoading(true);
+      (async () => {
+        const category = categoryId > 0 ? `category=${categoryId}` : '';
+        const sortBy = sortType.sortBy.replace('-', '');
+        const order = sortType.sortBy.includes('-') ? `asc` : `desc`;
 
+        const { data } = await axios.get(
+          `https://646db4449c677e23218a4558.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+        );
         setItems(data);
         setIsLoading(false);
-      };
-      fetchData();
+      })();
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error('Ошибка при запросе данных.', error);
     }
-  }, []);
+  }, [categoryId, sortType]);
+
+  console.log(categoryId, sortType);
 
   return (
     <>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          value={categoryId}
+          onClickCategory={(i) => setCategoryId(i)}
+        />
+        <Sort value={sortType} onClickSort={(obj) => setSortType(obj)} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

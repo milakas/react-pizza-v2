@@ -11,7 +11,7 @@ const Header = () => {
     <header className={cn()}>
       <Link to="/">
         <div className={cn('wrap-logo')}>
-          <h1 className={cn('title')}>React Pizza</h1>
+          <h1 className={cn('title')}>React Pizza v2</h1>
         </div>
       </Link>
 
