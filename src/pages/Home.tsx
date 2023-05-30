@@ -5,7 +5,7 @@ import axios from 'axios';
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
-import { IPizzaBlock } from '../types/interfaces';
+import { IPizzaBlock } from '../types/pizza';
 import PizzaBlock from '../components/PizzaBlock';
 
 const Home = () => {
@@ -14,15 +14,15 @@ const Home = () => {
 
   React.useEffect(() => {
     try {
-      const fetchData = async () => {
+      (async () => {
         const { data } = await axios.get(
           'https://646db4449c677e23218a4558.mockapi.io/items'
         );
 
         setItems(data);
         setIsLoading(false);
-      };
-      fetchData();
+      })();
+      window.scrollTo(0, 0);
     } catch (error) {
       console.error('Ошибка при запросе данных.', error);
     }

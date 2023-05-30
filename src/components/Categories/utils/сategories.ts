@@ -1,4 +1,4 @@
-import { PizzaCategory } from '../types/interfaces';
+import { PizzaCategory } from '../../../types/pizza';
 
 export const categories: PizzaCategory[] = [
   'Все',
@@ -8,5 +8,3 @@ export const categories: PizzaCategory[] = [
   'Острые',
   'Закрытые',
 ];
-
-export const sortList: string[] = ['популярности', 'цене', 'алфавиту'];

@@ -1,14 +1,15 @@
 import React from 'react';
 
 import bemCreator from '../utils/bemCreator';
-import { sortList } from '../utils/constants';
-import { setActiveIndex, getActiveClass } from '../utils/state';
+import { setActiveIndex, getActiveClass } from '../utils/activeState';
 
 const cn = bemCreator('sort');
 
 const Sort = () => {
   const [open, setOpen] = React.useState(false);
   const [selected, setSelected] = React.useState(0);
+
+  const sortList: string[] = ['популярности', 'цене', 'алфавиту'];
   const sortName = sortList[selected];
 
   const handleClick = (): void => {
