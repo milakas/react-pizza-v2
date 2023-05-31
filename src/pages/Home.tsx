@@ -9,7 +9,11 @@ import { IPizzaBlock } from '../types/pizza';
 import PizzaBlock from '../components/PizzaBlock';
 import { SortItem } from '../components/Sort/utils';
 
-const Home = () => {
+interface HomeProp {
+  searchValue: string;
+}
+
+const Home = ({ searchValue }: HomeProp) => {
   const [items, setItems] = React.useState<IPizzaBlock[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [categoryId, setCategoryId] = React.useState<number>(0);
@@ -25,20 +29,25 @@ const Home = () => {
         const category = categoryId > 0 ? `category=${categoryId}` : '';
         const sortBy = sortType.sortBy.replace('-', '');
         const order = sortType.sortBy.includes('-') ? `asc` : `desc`;
+        const search = searchValue ? `&search=${searchValue}` : ``;
 
         const { data } = await axios.get(
-          `https://646db4449c677e23218a4558.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`
+          `https://646db4449c677e23218a4558.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
         );
         setItems(data);
-        setIsLoading(false);
       })();
+      setIsLoading(false);
       window.scrollTo(0, 0);
     } catch (error) {
       console.error('Ошибка при запросе данных.', error);
     }
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
 
-  console.log(categoryId, sortType);
+  const pizzas = items.map((pizza: IPizzaBlock) => (
+    <PizzaBlock key={pizza.id} {...pizza} />
+  ));
+
+  const skeleton = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
   return (
     <>
@@ -52,11 +61,7 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         <Grid container spacing={3}>
-          {isLoading
-            ? [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-            : items.map((pizza: IPizzaBlock) => (
-                <PizzaBlock key={pizza.id} {...pizza} />
-              ))}
+          {isLoading ? skeleton : pizzas}
         </Grid>
       </div>
     </>

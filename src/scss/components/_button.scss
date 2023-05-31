@@ -13,7 +13,7 @@
   @include noselect();
 
   @media screen and (max-width: 767px) {
-    padding: 5px 18px;
+    padding: 8px 18px;
   }
 
   span {
@@ -109,6 +109,10 @@
     background-color: rgba(255, 255, 255, 0.25);
     margin-left: 10px;
     margin-right: 10px;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 
   &--add {
