@@ -5,8 +5,7 @@ export type PizzaCategory =
   | 'Мясные'
   | 'Вегетарианские'
   | 'Гриль'
-  | 'Острые'
-  | 'Закрытые';
+  | 'Острые';
 
 export interface IPizzaBlock {
   id: number;

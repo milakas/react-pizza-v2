@@ -6,5 +6,4 @@ export const categories: PizzaCategory[] = [
   'Вегетарианские',
   'Гриль',
   'Острые',
-  'Закрытые',
 ];
