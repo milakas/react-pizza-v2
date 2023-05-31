@@ -90,4 +90,10 @@ h3 {
     gap: 20px;
     margin-bottom: 30px;
   }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+  }
 }

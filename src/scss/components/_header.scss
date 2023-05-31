@@ -6,9 +6,7 @@
 
   z-index: 3;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
   gap: 10px;
   padding: $padding-desktop;
   width: 100%;
@@ -23,9 +21,16 @@
     padding: $padding-mobile;
   }
 
+  @media screen and (max-width: 390px) {
+    flex-wrap: wrap;
+    height: 110px;
+    gap: 5px;
+  }
+
   &__wrap-logo {
+    margin-right: auto;
     @media screen and (max-width: 767px) {
-      flex: 1;
+      flex: 1 0 130px;
     }
   }
 
@@ -46,8 +51,50 @@
     align-items: center;
     justify-content: space-between;
 
+    @media screen and (max-width: 600px) {
+      min-width: auto !important;
+    }
+
     svg {
       font-size: 1.1rem;
+    }
+  }
+
+  &__price {
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  //search input
+  .search-mui {
+    @media screen and (max-width: 390px) {
+      order: 3;
+    }
+
+    .MuiInputBase-root {
+      border-radius: 10px;
+      outline: 1px solid rgba(92, 99, 112, 0.316);
+
+      @media screen and (max-width: 390px) {
+        width: 100%;
+      }
+    }
+
+    .search-icon-wrapper {
+      svg {
+        opacity: 0.4;
+      }
+    }
+
+    input {
+      font-size: 16px;
+      @media screen and (max-width: 600px) {
+        font-size: 14px;
+      }
+      @media screen and (max-width: 390px) {
+        width: 100%;
+      }
     }
   }
 }

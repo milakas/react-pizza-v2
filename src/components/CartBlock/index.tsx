@@ -1,13 +1,12 @@
-import IconButton from '@mui/material/IconButton';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import React from 'react';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
+import Grid from '@mui/material/Grid';
 
 import bemCreator from '../../utils/bemCreator';
-import Grid from '@mui/material/Grid';
 
 const cn = bemCreator('cart-block');
 
