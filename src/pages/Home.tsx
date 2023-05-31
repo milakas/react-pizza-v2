@@ -1,20 +1,20 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
+import Pagination from '@mui/material/Pagination';
 import axios from 'axios';
 
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
-import { IPizzaBlock } from '../types/pizza';
 import PizzaBlock from '../components/PizzaBlock';
 import { SortItem } from '../components/Sort/utils';
-import Pagination from '@mui/material/Pagination';
 
-interface HomeProp {
-  searchValue: string;
-}
+import { IPizzaBlock } from '../types/pizza';
+import SearchContext from '../contexts/SearchContext';
 
-const Home = ({ searchValue }: HomeProp) => {
+const Home = () => {
+  const { searchValue } = React.useContext(SearchContext);
+
   const [items, setItems] = React.useState<IPizzaBlock[]>([]);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
   const [categoryId, setCategoryId] = React.useState<number>(0);

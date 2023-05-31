@@ -2,13 +2,11 @@ import React, { ChangeEvent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
 import { SearchIconWrapper, SearchMui, StyledInputBase } from './utils';
+import SearchContext from '../../contexts/SearchContext';
 
-interface SearchProps {
-  searchValue: string;
-  setSearchValue(value: string): void;
-}
+const Search = () => {
+  const { searchValue, setSearchValue } = React.useContext(SearchContext);
 
-const Search = ({ searchValue, setSearchValue }: SearchProps) => {
   const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(target.value);
   };

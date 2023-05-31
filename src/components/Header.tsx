@@ -7,12 +7,7 @@ import Search from './Search/Search';
 
 const cn = bemCreator('header');
 
-export interface HeaderProps {
-  searchValue: string;
-  setSearchValue(value: string): void;
-}
-
-const Header = ({ searchValue, setSearchValue }: HeaderProps) => {
+const Header = () => {
   return (
     <header className={cn()}>
       <Link to="/" className={cn('wrap-logo')}>
@@ -20,7 +15,7 @@ const Header = ({ searchValue, setSearchValue }: HeaderProps) => {
           <h1 className={cn('title')}>React Pizza</h1>
         </div>
       </Link>
-      <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+      <Search />
       <div className={cn('cart')}>
         <Link to="/cart" className={`button ${cn('button')}`}>
           <span className={cn('price')}>520 ₽</span>

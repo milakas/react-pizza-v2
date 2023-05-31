@@ -1,8 +1,9 @@
-import CartBlock from '../components/CartBlock';
+import React from 'react';
 import Grid from '@mui/material/Grid';
-
-import bemCreator from '../utils/bemCreator';
 import { Link } from 'react-router-dom';
+
+import CartBlock from '../components/CartBlock';
+import bemCreator from '../utils/bemCreator';
 
 const cn = bemCreator('cart-block');
 
