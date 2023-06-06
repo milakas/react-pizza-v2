@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { SearchIconWrapper, SearchMui, StyledInputBase } from './theme';
 import { useAppDispatch } from '../../redux/hooks';
-import { setSearchValue } from '../../redux/slices/filter/slice';
+import { setSearchValue } from '../../redux/filter/slice';
 
 import bemCreator from '../../utils/bemCreator';
 

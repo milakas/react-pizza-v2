@@ -4,9 +4,8 @@ import bemCreator from '../../utils/bemCreator';
 import { getActiveClass } from '../../utils/activeState';
 import useScroll from './useScroll';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { selectFilter } from '../../redux/slices/filter/selectors';
-import { setCategoryId } from '../../redux/slices/filter/slice';
-
+import { selectFilter } from '../../redux/filter/selectors';
+import { setCategoryId } from '../../redux/filter/slice';
 
 const cn = bemCreator('categories');
 

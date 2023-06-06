@@ -2,10 +2,10 @@ import React from 'react';
 
 import bemCreator from '../utils/bemCreator';
 import { getActiveClass } from '../utils/activeState';
-import { SortItem } from '../redux/slices/filter/types';
+import { SortItem } from '../redux/filter/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { selectFilter } from '../redux/slices/filter/selectors';
-import { setSortBy } from '../redux/slices/filter/slice';
+import { selectFilter } from '../redux/filter/selectors';
+import { setSortBy } from '../redux/filter/slice';
 
 const cn = bemCreator('sort');
 

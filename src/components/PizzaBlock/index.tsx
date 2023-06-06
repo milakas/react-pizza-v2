@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 
 import bemCreator from '../../utils/bemCreator';
 import { setActiveIndex, getActiveClass } from '../../utils/activeState';
-import { IPizza, PizzaType, PizzaSize } from '../../redux/slices/pizza/types';
+import { IPizza, PizzaType, PizzaSize } from '../../redux/pizza/types';
 
 const cn = bemCreator('pizza-block');
 

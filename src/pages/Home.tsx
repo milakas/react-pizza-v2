@@ -11,11 +11,11 @@ import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { selectPizzaData } from '../redux/slices/pizza/selectors';
-import { selectFilter } from '../redux/slices/filter/selectors';
-import { setPizzas } from '../redux/slices/pizza/slice';
-import { setCurrentPage, setFilters } from '../redux/slices/filter/slice';
-import { IPizza } from '../redux/slices/pizza/types';
+import { selectPizzaData } from '../redux/pizza/selectors';
+import { selectFilter } from '../redux/filter/selectors';
+import { setPizzas } from '../redux/pizza/slice';
+import { setCurrentPage, setFilters } from '../redux/filter/slice';
+import { IPizza } from '../redux/pizza/types';
 
 const Home = () => {
   const navigate = useNavigate();
