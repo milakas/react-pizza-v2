@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 
 import bemCreator from '../../utils/bemCreator';
 import { setActiveIndex, getActiveClass } from '../../utils/activeState';
-import { IPizzaBlock, PizzaType, PizzaSize } from '../../types/pizza';
+import { IPizza, PizzaType, PizzaSize } from '../../redux/slices/pizza/types';
 
 const cn = bemCreator('pizza-block');
 
@@ -14,7 +14,7 @@ const PizzaBlock = ({
   types,
   sizes,
   price,
-}: IPizzaBlock) => {
+}: IPizza) => {
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
 

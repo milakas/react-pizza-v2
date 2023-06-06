@@ -8,6 +8,7 @@ export interface SortItem {
 export interface FilterState {
   categoryId: number;
   sort: SortItem;
+  searchValue: string;
   sortList: SortItem[];
   categories: PizzaCategory[];
 }

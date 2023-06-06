@@ -30,11 +30,10 @@ const Skeleton: FunctionComponent<IProps> = (props) => {
           backgroundColor="#f3f3f3"
           foregroundColor="#ecebeb"
           {...props}>
-          <circle cx={'18%'} cy={'19%'} r={'18%'} />
-          <rect x={'40%'} y="35" rx="9" ry="9" width={'100%'} height="60" />
-          <rect x={'40%'} y="5" rx="9" ry="9" width={'100%'} height="20" />
-          <rect x="0" y="160" rx="9" ry="9" width={'100%'} height="70" />
-          <rect x="0" y="250" rx="9" ry="9" width={'100%'} height="25" />
+          <circle cx={'18%'} cy={'21%'} r={'18%'} />
+          <rect x={'41%'} y="35" rx="9" ry="9" width={'100%'} height="60" />
+          <rect x={'41%'} y="5" rx="9" ry="9" width={'100%'} height="20" />
+          <rect x="0" y="180" rx="9" ry="9" width={'100%'} height="70" />
         </ContentLoader>
       ) : (
         <ContentLoader
