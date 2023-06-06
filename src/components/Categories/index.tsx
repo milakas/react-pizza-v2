@@ -2,28 +2,29 @@ import React from 'react';
 
 import bemCreator from '../../utils/bemCreator';
 import { getActiveClass } from '../../utils/activeState';
-import { categories } from './utils/сategories';
-import { PizzaCategory } from '../../types/pizza';
-import useScroll from './utils/useScroll';
+import useScroll from './useScroll';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setCategoryId } from '../../redux/slices/filter';
 
 const cn = bemCreator('categories');
 
-interface CategoriesProps {
-  value: number;
-  onClickCategory(i: number): void;
-}
-
-const Categories = ({ value, onClickCategory }: CategoriesProps) => {
+const Categories = () => {
+  const dispatch = useAppDispatch();
+  const { categoryId, categories } = useAppSelector((state) => state.filter);
   const { carouselRef, handleScroll } = useScroll<HTMLUListElement>();
+
+  const onChangeCategory = (index: number) => {
+    dispatch(setCategoryId(index));
+  };
 
   return (
     <div className={cn()}>
       <ul className={cn('items')} ref={carouselRef} onScroll={handleScroll}>
-        {categories.map((category: PizzaCategory, i: number) => (
+        {categories.map((category, i: number) => (
           <li
             key={i}
-            onClick={() => onClickCategory(i)}
-            className={`${getActiveClass(value, i)} ${cn('item')}`}>
+            onClick={() => onChangeCategory(i)}
+            className={`${getActiveClass(categoryId, i)} ${cn('item')}`}>
             {category}
           </li>
         ))}

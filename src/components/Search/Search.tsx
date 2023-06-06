@@ -1,14 +1,16 @@
 import React, { ChangeEvent } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 
-import { SearchIconWrapper, SearchMui, StyledInputBase } from './utils';
-import SearchContext from '../../contexts/SearchContext';
+import { SearchIconWrapper, SearchMui, StyledInputBase } from './theme';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { setSearchValue } from '../../redux/slices/filter';
 
 const Search = () => {
-  const { searchValue, setSearchValue } = React.useContext(SearchContext);
+  const dispatch = useAppDispatch();
+  const searchValue = useAppSelector((state) => state.filter.searchValue);
 
   const handleInputChange = ({ target }: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(target.value);
+    dispatch(setSearchValue(target.value));
   };
 
   return (

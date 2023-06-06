@@ -1,25 +1,24 @@
 import React from 'react';
 
-import bemCreator from '../../utils/bemCreator';
-import { SortItem, sortList } from './utils';
-import { getActiveClass } from '../../utils/activeState';
+import bemCreator from '../utils/bemCreator';
+import { getActiveClass } from '../utils/activeState';
+import { SortItem } from '../redux/slices/filter/types';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { setSortBy } from '../redux/slices/filter';
 
 const cn = bemCreator('sort');
 
-interface SortProps {
-  value: SortItem;
-  onClickSort(setValue: SortItem): void;
-}
-
-const Sort = ({ value, onClickSort }: SortProps) => {
+const Sort = () => {
+  const dispatch = useAppDispatch();
+  const { sort, sortList } = useAppSelector((state) => state.filter);
   const [open, setOpen] = React.useState(false);
 
   const toggleOpen = (): void => {
     setOpen(!open);
   };
 
-  const handleSortItemClick = (obj: SortItem): void => {
-    onClickSort(obj);
+  const onClickSortItem = (obj: SortItem): void => {
+    dispatch(setSortBy(obj));
     setOpen(!open);
   };
 
@@ -38,7 +37,7 @@ const Sort = ({ value, onClickSort }: SortProps) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span>{value.name}</span>
+        <span>{sort.name}</span>
       </div>
       {open && (
         <div className={cn('popup')}>
@@ -46,8 +45,8 @@ const Sort = ({ value, onClickSort }: SortProps) => {
             {sortList.map((obj, i) => (
               <li
                 key={i}
-                className={`${getActiveClass(value, obj)}`}
-                onClick={() => handleSortItemClick(obj)}>
+                className={`${getActiveClass(sort, obj)}`}
+                onClick={() => onClickSortItem(obj)}>
                 {obj.name}
               </li>
             ))}

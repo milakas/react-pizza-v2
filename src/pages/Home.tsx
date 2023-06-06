@@ -1,60 +1,46 @@
 import React from 'react';
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { IPizza } from '../redux/slices/pizza/types';
+import { fetchPizzas } from '../redux/slices/pizza';
 
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { SortItem } from '../components/Sort/utils';
-
-import { IPizzaBlock } from '../types/pizza';
-import SearchContext from '../contexts/SearchContext';
 
 const Home = () => {
-  const { searchValue } = React.useContext(SearchContext);
-
-  const [items, setItems] = React.useState<IPizzaBlock[]>([]);
+  const dispatch = useAppDispatch();
+  const { categoryId, sort, searchValue } = useAppSelector(
+    (state) => state.filter
+  );
+  const { items } = useAppSelector((state) => state.pizza);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const [categoryId, setCategoryId] = React.useState<number>(0);
-  const [sortType, setSortType] = React.useState<SortItem>({
-    name: 'популярности',
-    sortBy: 'rating',
-  });
   const [currentPage, setCurrentPage] = React.useState(1);
-  const itemsPerPage = 4;
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const ITEMS_PER_PAGE = 4;
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
 
   React.useEffect(() => {
     (async () => {
       try {
         setIsLoading(true);
-
-        const category = categoryId > 0 ? `category=${categoryId}` : '';
-        const sortBy = sortType.sortBy.replace('-', '');
-        const order = sortType.sortBy.includes('-') ? 'asc' : 'desc';
-        const search = searchValue ? `&search=${searchValue}` : '';
-        const { data } = await axios.get(
-          `https://646db4449c677e23218a4558.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`
-        );
-
-        setItems(data);
+        await dispatch(fetchPizzas({ categoryId, sort, searchValue }));
         setIsLoading(false);
         window.scrollTo(0, 0);
       } catch (error) {
         console.error('Ошибка при запросе данных.', error);
       }
     })();
-  }, [categoryId, sortType, searchValue]);
+  }, [categoryId, sort, searchValue, dispatch]);
 
-  const pizzas = items.map((pizza: IPizzaBlock) => (
+  const pizzas = items?.map((pizza: IPizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
   ));
 
-  const skeleton = [...new Array(itemsPerPage)].map((_, i) => (
+  const skeleton = [...new Array(ITEMS_PER_PAGE)].map((_, i) => (
     <Skeleton key={i} />
   ));
 
@@ -66,16 +52,13 @@ const Home = () => {
     window.scrollTo(0, 0);
   };
 
-  const totalPages = Math.ceil(pizzas.length / itemsPerPage);
+  const totalPages = Math.ceil(pizzas.length / ITEMS_PER_PAGE);
 
   return (
     <>
       <div className="content__top">
-        <Categories
-          value={categoryId}
-          onClickCategory={(i) => setCategoryId(i)}
-        />
-        <Sort value={sortType} onClickSort={(obj) => setSortType(obj)} />
+        <Categories />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">

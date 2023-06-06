@@ -1,3 +1,5 @@
+import { SortItem } from '../filter/types';
+
 export type PizzaType = 0 | 1;
 export type PizzaSize = 26 | 30 | 35;
 export type PizzaCategory =
@@ -7,7 +9,7 @@ export type PizzaCategory =
   | 'Гриль'
   | 'Острые';
 
-export interface IPizzaBlock {
+export interface IPizza {
   id: number;
   imageUrl: string;
   title: string;
@@ -17,4 +19,14 @@ export interface IPizzaBlock {
   price: number;
   category: PizzaCategory | number;
   rating: number;
+}
+
+export interface PizzaState {
+  items: IPizza[];
+}
+
+export interface FetchPizzasPayload {
+  categoryId: number;
+  sort: SortItem;
+  searchValue: string;
 }
