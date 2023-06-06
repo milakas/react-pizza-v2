@@ -1,46 +1,99 @@
 import React from 'react';
+import qs from 'qs';
+import { useNavigate } from 'react-router';
+
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { IPizza } from '../redux/slices/pizza/types';
-import { fetchPizzas } from '../redux/slices/pizza';
+import { setPizzas } from '../redux/slices/pizza/slice';
+import { setCurrentPage, setFilters } from '../redux/slices/filter/slice';
 
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
+import { selectFilter } from '../redux/slices/filter/selectors';
+import { selectPizzaData } from '../redux/slices/pizza/selectors';
+import axios from 'axios';
 
 const Home = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { categoryId, sort, searchValue } = useAppSelector(
-    (state) => state.filter
-  );
-  const { items } = useAppSelector((state) => state.pizza);
+  const isSearch = React.useRef<boolean>(false);
+  const isMounted = React.useRef<boolean>(false);
+
+  const {
+    categoryId,
+    sort,
+    searchValue,
+    currentPage,
+    itemsPerPage,
+    sortList,
+    totalPages,
+  } = useAppSelector(selectFilter);
+  const { items } = useAppSelector(selectPizzaData);
   const [isLoading, setIsLoading] = React.useState<boolean>(true);
-  const [currentPage, setCurrentPage] = React.useState(1);
 
-  const ITEMS_PER_PAGE = 4;
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const fetchPizzas = async () => {
+    setIsLoading(true);
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const sortBy = sort.sortBy.replace('-', '');
+    const order = sort.sortBy.includes('-') ? 'asc' : 'desc';
+    const search = searchValue ? `&search=${searchValue}` : '';
+    const { data } = await axios.get(
+      `https://646db4449c677e23218a4558.mockapi.io/items?page=${currentPage}&limit=${itemsPerPage}&${category}&sortBy=${sortBy}&order=${order}${search}`
+    );
+    dispatch(setPizzas(data));
+    setIsLoading(false);
+  };
 
+  // Парсим параметры при первом рендере
   React.useEffect(() => {
-    (async () => {
-      try {
-        setIsLoading(true);
-        await dispatch(fetchPizzas({ categoryId, sort, searchValue }));
-        setIsLoading(false);
-        window.scrollTo(0, 0);
-      } catch (error) {
-        console.error('Ошибка при запросе данных.', error);
-      }
-    })();
-  }, [categoryId, sort, searchValue, dispatch]);
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = sortList.find((obj) => obj.sortBy === params.sortBy);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        })
+      );
+      isSearch.current = true;
+    }
+  }, []);
+
+  // Если изменили параметры и был первый рендер
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortBy: sort.sortBy,
+        categoryId,
+        currentPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sort.sortBy, currentPage]);
+
+  // Если был первый рендер, то запрашиваем пиццы
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (!isSearch.current) {
+      fetchPizzas();
+    }
+
+    isSearch.current = false;
+  }, [categoryId, sort, searchValue, currentPage]);
 
   const pizzas = items?.map((pizza: IPizza) => (
     <PizzaBlock key={pizza.id} {...pizza} />
   ));
 
-  const skeleton = [...new Array(ITEMS_PER_PAGE)].map((_, i) => (
+  const skeleton = [...new Array(itemsPerPage)].map((_, i) => (
     <Skeleton key={i} />
   ));
 
@@ -48,11 +101,9 @@ const Home = () => {
     event: React.ChangeEvent<unknown>,
     page: number
   ) => {
-    setCurrentPage(page);
+    dispatch(setCurrentPage(page));
     window.scrollTo(0, 0);
   };
-
-  const totalPages = Math.ceil(pizzas.length / ITEMS_PER_PAGE);
 
   return (
     <>
@@ -63,7 +114,7 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         <Grid container spacing={3}>
-          {isLoading ? skeleton : pizzas.slice(startIndex, endIndex)}
+          {isLoading ? skeleton : pizzas}
         </Grid>
       </div>
       <div className="content__pagination">

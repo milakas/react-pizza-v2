@@ -29,4 +29,5 @@ export interface FetchPizzasPayload {
   categoryId: number;
   sort: SortItem;
   searchValue: string;
+  currentPage: number;
 }

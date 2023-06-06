@@ -4,18 +4,19 @@ import bemCreator from '../../utils/bemCreator';
 import { getActiveClass } from '../../utils/activeState';
 import useScroll from './useScroll';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { setCategoryId } from '../../redux/slices/filter';
+import { setCategoryId } from '../../redux/slices/filter/slice';
+import { selectFilter } from '../../redux/slices/filter/selectors';
 
 const cn = bemCreator('categories');
 
 const Categories = () => {
   const dispatch = useAppDispatch();
-  const { categoryId, categories } = useAppSelector((state) => state.filter);
+  const { categoryId, categories } = useAppSelector(selectFilter);
   const { carouselRef, handleScroll } = useScroll<HTMLUListElement>();
 
-  const onChangeCategory = (index: number) => {
+  const onChangeCategory = React.useCallback((index: number) => {
     dispatch(setCategoryId(index));
-  };
+  }, []);
 
   return (
     <div className={cn()}>
