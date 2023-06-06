@@ -1,21 +1,21 @@
 import React from 'react';
 import qs from 'qs';
+import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { IPizza } from '../redux/slices/pizza/types';
-import { setPizzas } from '../redux/slices/pizza/slice';
-import { setCurrentPage, setFilters } from '../redux/slices/filter/slice';
 
 import Categories from '../components/Categories';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import { selectFilter } from '../redux/slices/filter/selectors';
 import { selectPizzaData } from '../redux/slices/pizza/selectors';
-import axios from 'axios';
+import { selectFilter } from '../redux/slices/filter/selectors';
+import { setPizzas } from '../redux/slices/pizza/slice';
+import { setCurrentPage, setFilters } from '../redux/slices/filter/slice';
+import { IPizza } from '../redux/slices/pizza/types';
 
 const Home = () => {
   const navigate = useNavigate();
