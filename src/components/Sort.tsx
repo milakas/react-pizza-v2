@@ -7,13 +7,13 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { selectFilter } from '../redux/slices/filter/selectors';
 import { setSortBy } from '../redux/slices/filter/slice';
 
-
 const cn = bemCreator('sort');
 
 const Sort = () => {
   const dispatch = useAppDispatch();
   const { sort, sortList } = useAppSelector(selectFilter);
   const [open, setOpen] = React.useState(false);
+  const sortRef = React.useRef<HTMLDivElement>(null);
 
   const toggleOpen = (): void => {
     setOpen(!open);
@@ -24,8 +24,21 @@ const Sort = () => {
     setOpen(!open);
   };
 
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const composed = event.composedPath();
+      if (!composed.includes(sortRef.current as HTMLDivElement)) {
+        setOpen(false);
+      }
+    };
+
+    document.body.addEventListener('click', handleClickOutside);
+
+    return () => document.body.removeEventListener('click', handleClickOutside);
+  }, []);
+
   return (
-    <div className={cn()}>
+    <div ref={sortRef} className={cn()}>
       <div className={cn('label')} onClick={toggleOpen}>
         <svg
           width="10"
