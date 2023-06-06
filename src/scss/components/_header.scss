@@ -65,36 +65,4 @@
       display: none;
     }
   }
-
-  //search input
-  .search-mui {
-    @media screen and (max-width: 390px) {
-      order: 3;
-    }
-
-    .MuiInputBase-root {
-      border-radius: 10px;
-      outline: 1px solid rgba(92, 99, 112, 0.316);
-
-      @media screen and (max-width: 390px) {
-        width: 100%;
-      }
-    }
-
-    .search-icon-wrapper {
-      svg {
-        opacity: 0.4;
-      }
-    }
-
-    input {
-      font-size: 16px;
-      @media screen and (max-width: 600px) {
-        font-size: 14px;
-      }
-      @media screen and (max-width: 390px) {
-        width: 100%;
-      }
-    }
-  }
 }
