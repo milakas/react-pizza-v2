@@ -4,13 +4,14 @@ import bemCreator from '../utils/bemCreator';
 import { getActiveClass } from '../utils/activeState';
 import { SortItem } from '../redux/slices/filter/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { setSortBy } from '../redux/slices/filter';
+import { setSortBy } from '../redux/slices/filter/slice';
+import { selectFilter } from '../redux/slices/filter/selectors';
 
 const cn = bemCreator('sort');
 
 const Sort = () => {
   const dispatch = useAppDispatch();
-  const { sort, sortList } = useAppSelector((state) => state.filter);
+  const { sort, sortList } = useAppSelector(selectFilter);
   const [open, setOpen] = React.useState(false);
 
   const toggleOpen = (): void => {
