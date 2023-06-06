@@ -3,6 +3,8 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { FilterState, SortItem } from './types';
 
 const initialState: FilterState = {
+  currentPage: 1,
+  itemsPerPage: 4,
   categoryId: 0,
   sort: {
     name: 'популярности',
@@ -31,8 +33,12 @@ const filterSlice = createSlice({
     setSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload;
     },
+    setCurrentPage: (state, action: PayloadAction<number>) => {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-export const { setCategoryId, setSortBy, setSearchValue } = filterSlice.actions;
+export const { setCategoryId, setSortBy, setSearchValue, setCurrentPage } =
+  filterSlice.actions;
 export default filterSlice.reducer;

@@ -6,6 +6,8 @@ export interface SortItem {
 }
 
 export interface FilterState {
+  currentPage: number;
+  itemsPerPage: number;
   categoryId: number;
   sort: SortItem;
   searchValue: string;
