@@ -1,5 +1,3 @@
-import { SortItem } from '../filter/types';
-
 export type PizzaType = 0 | 1;
 export type PizzaSize = 26 | 30 | 35;
 export type PizzaCategory =
@@ -20,14 +18,16 @@ export interface IPizza {
   category: PizzaCategory | number;
   rating: number;
 }
-
 export interface PizzaState {
   items: IPizza[];
+  loading: boolean;
+  error: boolean;
 }
 
-export interface FetchPizzasPayload {
-  categoryId: number;
-  sort: SortItem;
-  searchValue: string;
-  currentPage: number;
+export interface FetchPizzasParams {
+  category: string;
+  sortBy: string;
+  search: string;
+  currentPage: string;
+  order: string;
 }

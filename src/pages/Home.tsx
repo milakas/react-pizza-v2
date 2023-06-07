@@ -1,6 +1,5 @@
 import React from 'react';
 import qs from 'qs';
-import axios from 'axios';
 import { useNavigate } from 'react-router';
 
 import Grid from '@mui/material/Grid';
@@ -13,9 +12,9 @@ import Sort from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
 import { selectPizzaData } from '../redux/pizza/selectors';
 import { selectFilter } from '../redux/filter/selectors';
-import { setPizzas } from '../redux/pizza/slice';
 import { setCurrentPage, setFilters } from '../redux/filter/slice';
-import { IPizza } from '../redux/pizza/types';
+import { IPizza, PizzaCategory } from '../redux/pizza/types';
+import { fetchPizzas } from '../redux/pizza/asyncThunk';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -32,20 +31,24 @@ const Home = () => {
     sortList,
     totalPages,
   } = useAppSelector(selectFilter);
-  const { items } = useAppSelector(selectPizzaData);
-  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+  const { items, loading, error } = useAppSelector(selectPizzaData);
+  const { categories } = useAppSelector(selectFilter);
 
-  const fetchPizzas = async () => {
-    setIsLoading(true);
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+  const getPizzas = async () => {
+    const category = categoryId > 0 ? `${categoryId}` : '';
     const sortBy = sort.sortBy.replace('-', '');
     const order = sort.sortBy.includes('-') ? 'asc' : 'desc';
-    const search = searchValue ? `&search=${searchValue}` : '';
-    const { data } = await axios.get(
-      `https://646db4449c677e23218a4558.mockapi.io/items?page=${currentPage}&limit=${itemsPerPage}&${category}&sortBy=${sortBy}&order=${order}${search}`
+    const search = searchValue ? `${searchValue}` : '';
+
+    dispatch(
+      fetchPizzas({
+        sortBy,
+        order,
+        category,
+        search,
+        currentPage: String(currentPage),
+      })
     );
-    dispatch(setPizzas(data));
-    setIsLoading(false);
   };
 
   // Парсим параметры при первом рендере
@@ -83,7 +86,7 @@ const Home = () => {
     window.scrollTo(0, 0);
 
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas();
     }
 
     isSearch.current = false;
@@ -111,21 +114,33 @@ const Home = () => {
         <Categories />
         <Sort />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        <Grid container spacing={3}>
-          {isLoading ? skeleton : pizzas}
-        </Grid>
-      </div>
-      <div className="content__pagination">
-        <Pagination
-          count={totalPages}
-          page={currentPage}
-          onChange={handlePageChange}
-          variant="outlined"
-          size="large"
-        />
-      </div>
+      <h2 className="content__title">
+        {categoryId > 0 ? `${categories[categoryId]} пиццы` : 'Все пиццы'}
+      </h2>
+      {error ? (
+        <>
+          <h2 className="content__title">
+            Произошла ошибка при запросе пицц :(
+          </h2>
+        </>
+      ) : (
+        <>
+          <div className="content__items">
+            <Grid container spacing={3}>
+              {loading ? skeleton : pizzas}
+            </Grid>
+          </div>
+          <div className="content__pagination">
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+              variant="outlined"
+              size="large"
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
