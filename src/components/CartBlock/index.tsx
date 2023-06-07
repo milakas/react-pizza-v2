@@ -7,49 +7,73 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Grid from '@mui/material/Grid';
 
 import bemCreator from '../../utils/bemCreator';
+import { useAppDispatch } from '../../redux/hooks';
+import { ICart } from '../../redux/cart/types';
+import {
+  decrementCount,
+  incrementCount,
+  removeItem,
+} from '../../redux/cart/slice';
+import { getTypeName } from '../../utils/getTypeName';
 
 const cn = bemCreator('cart-block');
 
-function CartBlock() {
+const CartBlock = (item: ICart) => {
+  const dispatch = useAppDispatch();
+
+  const { count, price, type, size, title, imageUrl } = item;
+
+  const handleDecrement = () => {
+    dispatch(decrementCount(item));
+  };
+
+  const handleIncrement = () => {
+    dispatch(incrementCount(item));
+  };
+
+  const handleRemove = () => {
+    if (window.confirm('Товар будет удален из корзины')) {
+      dispatch(removeItem(item));
+    }
+  };
+
   return (
     <Grid item xs={12}>
       <div className={cn()}>
         <div className={cn('content')}>
           <div className={cn('image-wrap')}>
-            <img
-              className={cn('image')}
-              src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-              alt="Pizza"
-            />
+            <img className={cn('image')} src={imageUrl} alt="Pizza" />
           </div>
           <div className={cn('wrap')}>
             <div className={cn('info')}>
-              <h3 className={cn('title')}>Сырный цыпленок</h3>
-              <p className={cn('description')}>тонкое тесто, 26 см.</p>
+              <h3 className={cn('title')}>{title}</h3>
+              <p className={cn('description')}>
+                {getTypeName(type)} тесто, {size} см.
+              </p>
             </div>
             <div className={cn('button')}>
               <div className={cn('item-count')}>
                 <ButtonGroup>
                   <Button aria-label="reduce">
-                    {true ? (
-                      <DeleteIcon fontSize="small" />
+                    {count > 1 ? (
+                      <RemoveIcon fontSize="small" onClick={handleDecrement} />
                     ) : (
-                      <RemoveIcon fontSize="small" />
+                      <DeleteIcon fontSize="small" onClick={handleRemove} />
                     )}
                   </Button>
-                  <div className={cn('count')}>1</div>
-                  <Button aria-label="increase">
+                  <div className={cn('count')}>{count}</div>
+                  <Button aria-label="increase" onClick={handleIncrement}>
                     <AddIcon fontSize="small" />
                   </Button>
                 </ButtonGroup>
               </div>
-              <span className={cn('price')}>770 ₽</span>
+              <span className={cn('price')}>{price * count} ₽</span>
             </div>
           </div>
         </div>
       </div>
     </Grid>
   );
-}
+};
 
 export default CartBlock;

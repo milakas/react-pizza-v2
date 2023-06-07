@@ -4,10 +4,14 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import bemCreator from '../utils/bemCreator';
 import { Link } from 'react-router-dom';
 import Search from './Search/Search';
+import { useAppSelector } from '../redux/hooks';
+import { selectCart } from '../redux/cart/selector';
 
 const cn = bemCreator('header');
 
 const Header = () => {
+  const { totalCount, totalPrice } = useAppSelector(selectCart);
+
   return (
     <header className={cn()}>
       <Link to="/" className={cn('wrap-logo')}>
@@ -18,9 +22,9 @@ const Header = () => {
       <Search />
       <div className={cn('cart')}>
         <Link to="/cart" className={`button ${cn('button')}`}>
-          <span className={cn('price')}>520 ₽</span>
+          <span className={cn('price')}>{totalPrice} ₽</span>
           <div className="button__delimiter"></div>
-          <Badge badgeContent={4}>
+          <Badge badgeContent={totalCount}>
             <ShoppingCartIcon fontSize="small" />
           </Badge>
         </Link>

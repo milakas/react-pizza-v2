@@ -2,12 +2,12 @@ import React from 'react';
 
 import NotFoundBlock from '../components/NotFoundBlock';
 
-function NotFound() {
+const NotFound = () => {
   return (
     <>
-      <NotFoundBlock />
+      <NotFoundBlock title="Ничего не найдено" />
     </>
   );
-}
+};
 
 export default NotFound;

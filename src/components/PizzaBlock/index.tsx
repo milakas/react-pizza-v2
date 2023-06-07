@@ -4,10 +4,17 @@ import Grid from '@mui/material/Grid';
 import bemCreator from '../../utils/bemCreator';
 import { setActiveIndex, getActiveClass } from '../../utils/activeState';
 import { IPizza, PizzaType, PizzaSize } from '../../redux/pizza/types';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { addItem } from '../../redux/cart/slice';
+import { ICart } from '../../redux/cart/types';
+import { selectCartItems } from '../../redux/cart/selector';
+import { calcItemCount } from '../../utils/calcItemCount';
+import { getTypeName } from '../../utils/getTypeName';
 
 const cn = bemCreator('pizza-block');
 
 const PizzaBlock = ({
+  id,
   imageUrl,
   title,
   description,
@@ -15,12 +22,27 @@ const PizzaBlock = ({
   sizes,
   price,
 }: IPizza) => {
+  const dispatch = useAppDispatch();
+  const cartItems = useAppSelector(selectCartItems);
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
 
-  const getTypeName = (type: PizzaType): string => {
-    return type === 0 ? 'Тонкое' : 'Традиционное';
+  const onClickAdd = () => {
+    const addedItem: ICart = {
+      id: Number(`${id}${activeType}${activeSize}`),
+      pizzaId: id,
+      title,
+      imageUrl,
+      price,
+      type: types[activeType],
+      size: sizes[activeSize],
+      count: 0,
+    };
+
+    dispatch(addItem(addedItem));
   };
+
+  const addedCount = cartItems ? calcItemCount(cartItems, id) : 0;
 
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
@@ -59,9 +81,11 @@ const PizzaBlock = ({
           </div>
           <div className={cn('order')}>
             <div className={cn('price')}>от {price} ₽</div>
-            <button className="button button--outline button--add">
+            <button
+              className="button button--outline button--add"
+              onClick={onClickAdd}>
               <span className={cn('add')}>Добавить</span>
-              <i>0</i>
+              {addedCount > 0 && <i>{addedCount}</i>}
             </button>
           </div>
         </div>
