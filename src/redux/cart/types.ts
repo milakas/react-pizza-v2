@@ -2,7 +2,7 @@ import { PizzaSize, PizzaType } from '../pizza/types';
 
 //В pizzaId приходит Number(`${id}${activeType}${activeSize}`) из PizzaBlock
 
-export interface ICart {
+export interface CartDto {
   id: number;
   pizzaId: number;
   title: string;
@@ -12,6 +12,9 @@ export interface ICart {
   imageUrl: string;
   count: number;
 }
+
+export interface ICart extends CartDto { }
+export interface PCart extends Omit<CartDto, 'id'> {}
 
 export interface CartState {
   items: ICart[];

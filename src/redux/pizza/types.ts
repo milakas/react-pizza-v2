@@ -1,3 +1,5 @@
+import { ITEMS_PER_PAGE, SortItem } from '../filter/types';
+
 export type PizzaType = 0 | 1;
 export type PizzaSize = 26 | 30 | 35;
 export type PizzaCategory =
@@ -7,7 +9,7 @@ export type PizzaCategory =
   | 'Гриль'
   | 'Острые';
 
-export interface IPizza {
+export interface PizzaDto {
   id: number;
   imageUrl: string;
   title: string;
@@ -18,6 +20,9 @@ export interface IPizza {
   category: PizzaCategory | number;
   rating: number;
 }
+
+export interface IPizza extends PizzaDto {}
+
 export interface PizzaState {
   items: IPizza[];
   loading: boolean;
@@ -26,8 +31,9 @@ export interface PizzaState {
 
 export interface FetchPizzasParams {
   category: string;
-  sortBy: string;
+  sortBy: SortItem['sortBy'];
   search: string;
   currentPage: string;
   order: string;
+  limit: ITEMS_PER_PAGE;
 }

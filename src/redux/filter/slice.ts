@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { FilterState, SortItem } from './types';
+import { FilterState, ITEMS_PER_PAGE, SortItem } from './types';
 
 const initialState: FilterState = {
   currentPage: 1,
   // Установлено фиксированное количество totalPage из-за особенностей mockAPI
   totalPages: 3,
-  itemsPerPage: 4,
+  itemsPerPage: ITEMS_PER_PAGE.LIMIT,
 
   categoryId: 0,
   searchValue: '',

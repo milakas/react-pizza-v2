@@ -13,8 +13,9 @@ import PizzaBlock from '../components/PizzaBlock';
 import { selectPizzaData } from '../redux/pizza/selectors';
 import { selectFilter } from '../redux/filter/selectors';
 import { setCurrentPage, setFilters } from '../redux/filter/slice';
-import { IPizza, PizzaCategory } from '../redux/pizza/types';
+import { IPizza } from '../redux/pizza/types';
 import { fetchPizzas } from '../redux/pizza/asyncThunk';
+import { ITEMS_PER_PAGE } from '../redux/filter/types';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const Home = () => {
   const { items, loading, error } = useAppSelector(selectPizzaData);
   const { categories } = useAppSelector(selectFilter);
 
-  const getPizzas = async () => {
+  const getPizzas = () => {
     const category = categoryId > 0 ? `${categoryId}` : '';
     const sortBy = sort.sortBy.replace('-', '');
     const order = sort.sortBy.includes('-') ? 'asc' : 'desc';
@@ -47,6 +48,7 @@ const Home = () => {
         category,
         search,
         currentPage: String(currentPage),
+        limit: ITEMS_PER_PAGE.LIMIT,
       })
     );
   };
