@@ -1,6 +1,6 @@
 # react-pizza-v2 (в процессе разработки)
 
-Демо: [https://react-pizza-v2-milakas.vercel.app/] (https://react-pizza-v2-milakas.vercel.app/)
+Демо: [https://react-pizza-v2-milakas.vercel.app/](https://react-pizza-v2-milakas.vercel.app/)
 
 ** Полный стек: **
 - ReactJS + hooks
