@@ -53,6 +53,20 @@ const Home = () => {
     );
   };
 
+  // Если изменили параметры и был первый рендер
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryString = qs.stringify({
+        sortBy: sort.sortBy,
+        categoryId,
+        currentPage,
+      });
+
+      navigate(`?${queryString}`);
+    }
+    isMounted.current = true;
+  }, [categoryId, sort.sortBy, currentPage]);
+
   // Парсим параметры при первом рендере
   React.useEffect(() => {
     if (window.location.search) {
@@ -68,20 +82,6 @@ const Home = () => {
       isSearch.current = true;
     }
   }, []);
-
-  // Если изменили параметры и был первый рендер
-  React.useEffect(() => {
-    if (isMounted.current) {
-      const queryString = qs.stringify({
-        sortBy: sort.sortBy,
-        categoryId,
-        currentPage,
-      });
-
-      navigate(`?${queryString}`);
-    }
-    isMounted.current = true;
-  }, [categoryId, sort.sortBy, currentPage]);
 
   // Если был первый рендер, то запрашиваем пиццы
   React.useEffect(() => {
