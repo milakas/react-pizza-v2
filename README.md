@@ -2,7 +2,7 @@
 
 Демо: [https://react-pizza-v2-milakas.vercel.app/](https://react-pizza-v2-milakas.vercel.app/)
 
-** Полный стек: **
+**Полный стек:**
 - ReactJS + hooks
 - TypeScript
 - Redux Toolkit
