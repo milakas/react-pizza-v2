@@ -10,7 +10,7 @@ export type PizzaCategory =
   | 'Острые';
 
 export interface PizzaDto {
-  id: number;
+  id: string;
   imageUrl: string;
   title: string;
   description: string;

@@ -29,6 +29,7 @@
 
   &__image {
     width: 100%;
+    max-width: 450px;
     object-fit: contain;
     transition: transform 0.2s ease-in-out;
 

@@ -114,4 +114,24 @@ h3 {
       }
     }
   }
+
+  &__full-pizza {
+    margin: 50px auto;
+    max-width: 600px;
+
+    .pizza-block {
+      &__content {
+        display: flex;
+        margin-bottom: 20px;
+
+        @media screen and (max-width: 600px) {
+          margin-bottom: 0;
+        }
+      }
+
+      &__image {
+        max-width: 600px;
+      }
+    }
+  }
 }
