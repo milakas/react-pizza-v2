@@ -113,8 +113,8 @@ const Home = () => {
   return (
     <>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories categoryId={categoryId} categories={categories} />
+        <Sort sort={sort} sortList={sortList} />
       </div>
       <h2 className="content__title">
         {categoryId > 0 ? `${categories[categoryId]} пиццы` : 'Все пиццы'}

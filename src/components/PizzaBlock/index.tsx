@@ -1,8 +1,8 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
+import clsx from 'clsx';
 import Grid from '@mui/material/Grid';
 
 import bemCreator from '../../utils/bemCreator';
-import { setActiveIndex, getActiveClass } from '../../utils/activeState';
 import { IPizza, PizzaType, PizzaSize } from '../../redux/pizza/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { addItem } from '../../redux/cart/slice';
@@ -25,6 +25,7 @@ const PizzaBlock = ({
 }: IPizza) => {
   const dispatch = useAppDispatch();
   const cartItems = useAppSelector(selectCartItems);
+
   const [activeType, setActiveType] = React.useState<number>(0);
   const [activeSize, setActiveSize] = React.useState<number>(0);
 
@@ -41,6 +42,14 @@ const PizzaBlock = ({
     };
 
     dispatch(addItem(addedItem));
+  };
+
+  const hangleChangeSize = (i: number) => {
+    setActiveSize(i);
+  };
+
+  const hangleChangeType = (i: number) => {
+    setActiveType(i);
   };
 
   const addedCount = cartItems ? calcItemCount(cartItems, Number(id)) : 0;
@@ -65,8 +74,8 @@ const PizzaBlock = ({
               {sizes.map((size: PizzaSize, i: number) => (
                 <li
                   key={i}
-                  onClick={(): void => setActiveIndex(setActiveSize, i)}
-                  className={`${getActiveClass(activeSize, i)} ${cn('size')}`}>
+                  onClick={() => hangleChangeSize(i)}
+                  className={clsx(cn('size'), { active: activeSize === i })}>
                   {size} см.
                 </li>
               ))}
@@ -75,8 +84,8 @@ const PizzaBlock = ({
               {types.map((type: PizzaType, i: number) => (
                 <li
                   key={i}
-                  onClick={(): void => setActiveIndex(setActiveType, i)}
-                  className={`${getActiveClass(activeType, i)} ${cn('type')}`}>
+                  onClick={() => hangleChangeType(i)}
+                  className={clsx(cn('type'), { active: activeType === i })}>
                   {getTypeName(type)}
                 </li>
               ))}
