@@ -1,27 +1,29 @@
 import React from 'react';
 
 import bemCreator from '../utils/bemCreator';
-import { getActiveClass } from '../utils/activeState';
 import { SortItem } from '../redux/filter/types';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { selectFilter } from '../redux/filter/selectors';
+import { useAppDispatch } from '../redux/hooks';
 import { setSortBy } from '../redux/filter/slice';
 
 const cn = bemCreator('sort');
 
-const Sort = () => {
+type SortProps = {
+  sort: SortItem;
+  sortList: SortItem[];
+};
+
+const Sort = ({ sort, sortList }: SortProps) => {
   const dispatch = useAppDispatch();
-  const { sort, sortList } = useAppSelector(selectFilter);
   const [open, setOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLDivElement>(null);
 
   const toggleOpen = (): void => {
-    setOpen(!open);
+    setOpen((open) => !open);
   };
 
   const onClickSortItem = (obj: SortItem): void => {
     dispatch(setSortBy(obj));
-    setOpen(!open);
+    toggleOpen();
   };
 
   React.useEffect(() => {
@@ -57,12 +59,12 @@ const Sort = () => {
       {open && (
         <div className={cn('popup')}>
           <ul>
-            {sortList.map((obj, i) => (
+            {sortList.map((sortItem, i) => (
               <li
                 key={i}
-                className={`${getActiveClass(sort, obj)}`}
-                onClick={() => onClickSortItem(obj)}>
-                {obj.name}
+                className={sort === sortItem ? 'active' : ''}
+                onClick={() => onClickSortItem(sortItem)}>
+                {sortItem.name}
               </li>
             ))}
           </ul>
@@ -72,4 +74,4 @@ const Sort = () => {
   );
 };
 
-export default Sort;
+export default React.memo(Sort);

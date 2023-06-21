@@ -1,17 +1,21 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import bemCreator from '../../utils/bemCreator';
-import { getActiveClass } from '../../utils/activeState';
 import useScroll from './useScroll';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { selectFilter } from '../../redux/filter/selectors';
+import { useAppDispatch } from '../../redux/hooks';
 import { setCategoryId } from '../../redux/filter/slice';
+import { PizzaCategory } from '../../redux/pizza/types';
 
 const cn = bemCreator('categories');
 
-const Categories = () => {
+type CategoriesProps = {
+  categoryId: number;
+  categories: PizzaCategory[];
+};
+
+const Categories = ({ categoryId, categories }: CategoriesProps) => {
   const dispatch = useAppDispatch();
-  const { categoryId, categories } = useAppSelector(selectFilter);
   const { carouselRef, handleScroll } = useScroll<HTMLUListElement>();
 
   const onChangeCategory = React.useCallback((index: number) => {
@@ -25,7 +29,7 @@ const Categories = () => {
           <li
             key={i}
             onClick={() => onChangeCategory(i)}
-            className={`${getActiveClass(categoryId, i)} ${cn('item')}`}>
+            className={clsx(cn('item'), { active: categoryId === i })}>
             {category}
           </li>
         ))}
@@ -34,4 +38,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default React.memo(Categories);
