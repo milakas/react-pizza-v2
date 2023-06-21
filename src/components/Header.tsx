@@ -2,7 +2,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import bemCreator from '../utils/bemCreator';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Search from './Search';
 import { useAppSelector } from '../redux/hooks';
 import { selectCart } from '../redux/cart/selector';
