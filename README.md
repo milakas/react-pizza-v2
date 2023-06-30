@@ -1,4 +1,4 @@
-# react-pizza-v2 (в процессе разработки)
+# react-pizza-v2
 
 Демо: [https://react-pizza-v2-milakas.vercel.app/](https://react-pizza-v2-milakas.vercel.app/)
 
@@ -11,4 +11,5 @@
 - SCSS 
 - React Content Loader
 - React Pagination
+- Redux Persist
 - Lodash.Debounce
